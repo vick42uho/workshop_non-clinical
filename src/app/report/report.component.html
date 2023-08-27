@@ -1,0 +1,80 @@
+<section class="content-header">
+    <h1>
+        <i class="fa fa-book"></i> รายงาน
+        <small>Version 2.0</small>
+    </h1>
+    <ol class="breadcrumb">
+        <li>
+            <a routerLink=""><i class=" fa fa-dashboard "></i> Home</a></li>
+        <li class="active ">Dashboard</li>
+    </ol>
+</section>
+
+<section class="content ">
+    <div class="box box-success">
+
+        <div class="box-header with-border">
+            <h3 class="box-title"><i class="fa fa-calendar"></i> เลือกวันที่</h3>
+
+            <div class="box-tools pull-right">
+                <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+        </button>
+                <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
+            </div>
+        </div>
+
+
+        <div class="box-body">
+            <div class="row">
+                <div class="col-lg-5 col-md-5 col-sm-5">
+                    <div class="input-group">
+                        <span class="input-group-addon">จากวันที่</span>
+                        <input class="form-control" type="date" [(ngModel)]="search.from" />
+                    </div>
+                </div>
+
+                <div class="col-lg-5 col-md-5 col-sm-5">
+                    <div class="input-group">
+                        <span class="input-group-addon">ถึงวันที่</span>
+                        <input class="form-control" type="date" [(ngModel)]="search.to" />
+                    </div>
+                </div>
+
+                <div class="col-lg-2 col-md-2 col-sm-2">
+                    <a class="btn btn-success" (click)="showReport()">
+                        <i class="fa fa-check"></i> แสดง
+                    </a>
+                </div>
+            </div>
+
+
+            <div style="padding-top: 5px">
+                <table class="table table-bordered table-striped">
+                    <thead>
+                        <tr>
+                            <th width="130px">วันที่</th>
+                            <th width="150px">เจ้าของ</th>
+                            <th width="150px">สัตว์เลี้ยง</th>
+                            <th width="100px" class="text-right">ค่ารักษา</th>
+                            <th>อาการ</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let item of repairs">
+                            <td>{{ item.created_at | date: 'dd/MM/yyy HH:mm'}}</td>
+                            <td>{{ item.customer_name }}</td>
+                            <td>{{ item.pet.name }}</td>
+                            <td class="text-right">{{ item.price | number }}</td>
+                            <td>{{ item.problem }}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+
+            <div class="text-center">
+                <font size="6">ยอดขาย : <span class="text-danger"> {{ totalPrice | number }} </span> บาท</font>
+            </div>
+        </div>
+    </div>
+</section>

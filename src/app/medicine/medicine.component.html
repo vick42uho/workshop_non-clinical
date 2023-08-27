@@ -1,0 +1,120 @@
+<section class="content-header">
+    <h1>
+        <i class="fa fa-briefcase"></i> เวชภัณฑ์
+        <small>Version 2.0</small>
+    </h1>
+    <ol class="breadcrumb">
+        <li>
+            <a routerLink=""><i class=" fa fa-dashboard "></i> Home</a></li>
+        <li class="active ">Dashboard</li>
+    </ol>
+</section>
+
+<section class="content ">
+    <div class="box box-success">
+        <div class="box-header with-border">
+            <h3 class="box-title"><i class="fa fa-briefcase"></i></h3>
+
+            <div class="box-tools pull-right">
+                <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+        </button>
+                <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
+            </div>
+        </div>
+        <div class="box-body">
+            <a class="btn btn-success" data-toggle="modal" data-target="#modalMedicine">
+                <i class="fa fa-plus"></i> เพิ่มรายการ
+            </a>
+
+            <div class="table-responsive">
+                <table class="table no-margin">
+                    <thead>
+                        <tr>
+                            <th width="110px"></th>
+                            <th>รหัส</th>
+                            <th>ชื่อ</th>
+                            <th>ราคาทุน</th>
+                            <th>ราคาจำหน่าย</th>
+                            <th>หมายเหตุ</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let item of medicines">
+                            <td class="text-center">
+                                <a class="btn btn-danger" (click)="medicineDelate(item)">
+                                    <i class="fa fa-times"></i>
+                                </a>&nbsp;
+                                <a class="btn btn-success" (click)="medicineInfo(item)" data-toggle="modal" data-target="#modalMedicine">
+                                    <i class="fa fa-pencil"></i>
+                                </a>
+                            </td>
+                            <td>{{ item.code }}</td>
+                            <td>{{ item.name }}</td>
+                            <td>{{ item.sale }}</td>
+                            <td>{{ item.buy }}</td>
+                            <td>{{ item.remark }}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+        </div>
+    </div>
+
+
+    <div class="modal fade" id="modalMedicine" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header bg-success">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title"><i class="fa fa-pencil"></i> ข้อมูลเวชภัณฑ์</h4>
+                </div>
+
+                <div class="modal-body ">
+                    <div class="row">
+                        <div class="col-lg-3 col-md-3 col-sm-3">
+                            <div class="form-group">
+                                <label>รหัส</label>
+                                <input class="form-control" name="medicine.code" [(ngModel)]="medicine.code" />
+                            </div>
+                        </div>
+                        <div class=" col-lg-3 col-md-3 col-sm-3 ">
+                            <div class="form-group ">
+                                <label>ชื่อ</label>
+                                <input class="form-control " name="medicine.name " [(ngModel)]="medicine.name" />
+                            </div>
+                        </div>
+                        <div class="col-lg-3 col-md-3 col-sm-3 ">
+                            <div class="form-group ">
+                                <label>ราคาทุน</label>
+                                <input class="form-control " name="medicine.sale " [(ngModel)]="medicine.sale" />
+                            </div>
+                        </div>
+                        <div class="col-lg-3 col-md-3 col-sm-3 ">
+                            <div class="form-group ">
+                                <label>ราคาจำหน่าย</label>
+                                <input class="form-control " name="medicine.buy " [(ngModel)]="medicine.buy" />
+                            </div>
+                        </div>
+                        <div class="col-lg-12 col-md-12 col-sm-12 ">
+                            <div class="form-group ">
+                                <label>หมายเหตุ</label>
+                                <input class="form-control " name="medicine.remark " [(ngModel)]="medicine.remark" />
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="text-center ">
+                        <a class="btn btn-success " (click)="save()" data-dismiss="modal">
+                            <i class="fa fa-check "></i> บันทึก
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+    </div>
+    <!-- /.modal -->
+</section>

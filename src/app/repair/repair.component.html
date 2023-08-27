@@ -1,0 +1,295 @@
+<section class="content-header">
+    <h1>
+        <i class="fa fa-book"></i> บันทึกการรักษา
+        <small>Version 2.0</small>
+    </h1>
+    <ol class="breadcrumb">
+        <li>
+            <a routerLink=""><i class=" fa fa-dashboard "></i> Home</a></li>
+        <li class="active ">Dashboard</li>
+    </ol>
+</section>
+
+<section class="content ">
+    <div class="box box-success">
+        <div class="box-header with-border">
+            <h3 class="box-title"><i class="fa fa-paw"></i> สัตว์เลี้ยง</h3>
+
+            <div class="box-tools pull-right">
+                <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+        </button>
+                <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
+            </div>
+        </div>
+        <div class="box-body">
+            <div class="row">
+                <div class="col-lg-4-md-4 col-sm-4">
+                    <div class="form-group">
+                        <label>เจ้าของสัตว์เลี้ยง</label>
+                        <div class="input-group">
+                            <input class="form-control" readonly="readonly" name="customer.name" [(ngModel)]="customer.name" />
+                            <a class="btn input-group-addon bg-green" (Cilck)="loadCustomers()" data-toggle="modal" data-target="#modalCustomer">
+                                <i class="fa fa-search"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-12 col-md-12 col-sm-12">
+                    <div class="form-group">
+                        <div><label>สัตว์เลี้ยงของคุณ</label></div>
+                        <div class="table-responsive">
+                            <table class="table no-margin">
+                                <thead>
+                                    <tr>
+                                        <th width="100px">เลือก</th>
+                                        <th width="150px">ชื่อ</th>
+                                        <th>หมายเหตุ</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor="let item of pets">
+                                        <td class="text-center">
+                                            <a class="btn btn-success" (click)="choosePet(item)">
+                                                <i class="fa fa-check"></i> เลือก
+                                            </a>
+                                        </td>
+                                        <td>{{ item.name }}</td>
+                                        <td>{{ item.remark }}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-12 col-md-12 col-sm-12">
+                    <div class="form-group">
+                        <div class="form-group">
+                            <label>คุณเลือก:</label>
+                            <input class="form-control" readonly="readonly" value="{{ pet.name }}" />
+                        </div>
+                        <div class="form-group">
+                            <label>อาการ</label>
+                            <input class="form-control" name="repair.problem" [(ngModel)]="repair.problem" />
+                        </div>
+                        <div class="form-group">
+                            <label>ค่าบริการ</label>
+                            <input class="form-control" name="repair.price" [(ngModel)]="repair.price" />
+                        </div>
+                        <div class="form-group">
+                            <label>หมายเหตุ</label>
+                            <input class="form-control" name="repair.remark" [(ngModel)]="repair.remark" />
+                        </div>
+                    </div>
+                    <div class="form-group" class="text-center">
+                        <a class="btn btn-success " (click)="saveRepair()">
+                            <i class="fa fa-check "></i> บันทึก
+                        </a>
+                    </div>
+                </div>
+
+
+
+
+            </div>
+        </div>
+    </div>
+
+    <div class="box box-primary ">
+        <div class="box-header ">
+            <i class="fa fa-list-alt "></i> ประวัติการรักษา ของสัตว์เลี้ยงตัวนี้
+        </div>
+        <div class="box-body ">
+            <table class="table-bordered">
+                <thead>
+                    <tr>
+                        <th width="210px"></th>
+                        <th>อาการ</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let item of repairs">
+                        <td class="text-center">
+                            <a class="btn btn-danger" (click)="removeRepair(item)">
+                                <i fa fa-times></i>
+                            </a>
+                            &nbsp;
+                            <a class="btn btn-success" (click)="editRepair(item)">
+                                <i class="fa fa-pencil"></i>
+                            </a>
+                            &nbsp;
+                            <a class="btn btn-success" (click)="modalMedicine(item)" data-toggle="modal" data-target="#modalMedicine">
+                                <i class="fa fa-list-alt"></i>
+                            </a>
+                            &nbsp;
+                            <a class="btn btn-success" (click)="modalHistory(item)" data-toggle="modal" data-target="#modalHistory">
+                                <i class="fa fa-list"></i>
+                            </a>
+                        </td>
+                        <td>{{ item.problem }}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div class="modal fade" id="modalCustomer" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header bg-success">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title"><i class="fa fa-pencil"></i> ข้อมูลลูกค้า</h4>
+                </div>
+
+                <div class="modal-body ">
+                    <table class="table table-bordered">
+                        <thead>
+                            <tr>
+                                <th width="100px"></th>
+                                <th>code</th>
+                                <th>ชื่อ</th>
+                                <th>เบอร์โทรศัพท์</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let item of customers">
+                                <td>
+                                    <a data-dismiss="modal" (click)="chooseCustomer(item)" class="btn btn-success">
+                                        <i class="fa fa-check"></i> เลือก
+                                    </a>
+                                </td>
+                                <td>{{ item.code }}</td>
+                                <td>{{ item.name }}</td>
+                                <td>{{ item.tel }}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+    </div>
+    <!-- /.modal -->
+
+
+    <div class="modal fade" id="modalMedicine" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header bg-success">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title"><i class="fa fa-pencil"></i> ข้อมูลการใช้เวชภัณฑ์</h4>
+                </div>
+
+                <div class="modal-body ">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th width="188px"></th>
+                                <th>รหัส</th>
+                                <th>ชื่อ</th>
+                                <th class="text-right">ราคาจำหน่าย</th>
+                                <th>หมายเหตุ</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let item of medicines">
+                                <td class="text-center">
+                                    <a class="btn btn-success" (click)="chooseMedicine(item)" data-toggle=" modal " data-target="#modalMedacineForm ">
+                                        <i class="fa fa-check "></i>เลือก
+                                    </a>
+                                </td>
+                                <td>{{ item.code }}</td>
+                                <td>{{ item.name }}</td>
+                                <td class="text-right ">{{ item.sale }}</td>
+                                <td>{{ item.remark }}</td>
+                            </tr>
+                        </tbody>
+
+                    </table>
+                </div>
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+    </div>
+    <!-- /.modal -->
+
+
+
+    <div class="modal fade " id="modalHistory " tabindex="-1 " role="dialog ">
+        <div class="modal-dialog " role="document ">
+            <div class="modal-content ">
+                <div class="modal-header bg-success ">
+                    <button type="button " class="close " data-dismiss="modal " aria-label="Close "><span aria-hidden="true ">&times;</span></button>
+                    <h4 class="modal-title "><i class="fa fa-pencil "></i> ประวัติการใช้เวชภัณฑ์</h4>
+                </div>
+
+                <div class="modal-body ">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th width="118px"></th>
+                                <th>ชื้อ</th>
+                                <th>จำนวน</th>
+                                <th>หมายเหตุ</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let item of historys">
+                                <td class="text-center"></td>
+                                <a class="btn btn-success" (click)="editHistory(item)" data-toggle="modal" data-target="#modalMedacineForm">
+                                    <i class="fa fa-pencil"></i>
+                                </a>
+                                &nbsp;
+                                <a class="btn btn-danger" (click)="removeHistory(item)">
+                                    <i class="fa fa-times"></i>
+                                </a>
+                                <td>{{ item.medicine[0].name }}</td>
+                                <td>{{ item.qty }}</td>
+                                <td>{{ item.remark }}</td>
+                            </tr>
+                        </tbody>
+
+                    </table>
+                </div>
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+    </div>
+    <!-- /.modal -->
+
+    <div class="modal fade " id="modalMedacineForm " tabindex="-1 " role="dialog ">
+        <div class="modal-dialog " role="document ">
+            <div class="modal-content ">
+                <div class="modal-header bg-success ">
+                    <button type="button " class="close " data-dismiss="modal " aria-label="Close "><span aria-hidden="true ">&times;</span></button>
+                    <h4 class="modal-title "><i class="fa fa-pencil "></i> ข้อมูลการใช้เวชภัณฑ์</h4>
+                </div>
+
+                <div class="modal-body ">
+                    <div class="form-group ">
+                        <label>จำนวน</label>
+                        <input type="text " class="form-control " [(ngModel)]="repairMedicine.qty " />
+                    </div>
+                    <div class="form-group ">
+                        <label>หมายเหตุ</label>
+                        <input type="text " class="form-control " [(ngModel)]="repairMedicine.remark " />
+
+                    </div>
+
+                    <div class="form-group ">
+                        <button class="btn-btn-success " (click)="saveRepairMedicine() " data-dismiss="modal">
+                        <i class="fa fa-check "></i>บันทึก
+                    </button>
+                    </div>
+
+                </div>
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+    </div>
+    <!-- /.modal -->
+</section>
